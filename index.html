@@ -802,6 +802,8 @@
       <button class="filter-btn active">All</button>
       <button class="filter-btn">Completed</button>
       <button class="filter-btn">Pending</button>
+      <!-- NEW FEATURE: Clear All Tasks -->
+      <button class="filter-btn" id="clearAllBtn">Clear All</button>
     </div>
 
     <div class="task-list">
@@ -841,6 +843,8 @@
     const pendingTasks = document.getElementById('pendingTasks');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const themeToggle = document.getElementById('themeToggle');
+         // NEW FEATURE: Clear All Button
+    const clearAllBtn = document.getElementById('clearAllBtn');
 
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let currentFilter = 'All';
@@ -1085,6 +1089,21 @@
         icon.classList.add('bi-moon-stars-fill');
       }
     });
+
+    // NEW FEATURE: Clear All Tasks
+   clearAllBtn.addEventListener('click', () => {
+
+     const confirmClear = confirm(
+      'Are you sure you want to delete all tasks?'
+    );
+
+    if (!confirmClear) return;
+
+    tasks = [];
+    renderTasks();
+
+    showNotification('All tasks deleted successfully!');
+  });
 
     renderTasks();
   </script>
